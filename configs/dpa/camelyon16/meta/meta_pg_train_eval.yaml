@@ -1,0 +1,125 @@
+#=========================== CONFIG FOR TRAINING ===========================
+
+verbose: True
+#random_seed: 4343
+finetune_from:
+
+#checkpoint_root:
+#log_root:
+
+#--------------------- Hyperparameters of training  ------------------------------
+
+max_image_res: 64
+initial_image_res: 16
+image_dim: 3
+
+latent_res: 16
+latent_dim: 4
+
+trns_iter: 20000
+stab_iter: 20000
+iters_per_res:
+  64:
+    stab: 1000000
+
+val_iter: 1000
+log_iter: 10
+image_sample_iter: 1000
+early_stopping_patience: 3
+early_stopping_min_delta: 0.001
+
+#--------------------- Hyperparameters of optimizers ---------------------------
+
+adam_kwargs:
+  lr: 0.001
+
+batch_sizes:
+  16: 128
+  32: 128
+  64: 128
+
+#--------------------- Hyperparameters of dataset  ------------------------------
+
+train_dataset:
+  dataset_type: camelyon16
+  dataset_kwargs:
+    split: train
+#    image_root: ./data/data/camelyon16/x10
+  #  split_root:
+#    cache_data: True
+  transform_kwargs:
+    crop_size: 64
+    random_crop: True
+    random_flip: True
+
+val_dataset:
+  dataset_type: camelyon16
+  dataset_kwargs:
+    split: val
+#    image_root: ./data/data/camelyon16/x10
+  #  split_root:
+#    cache_data: True
+  transform_kwargs:
+    crop_size: 64
+
+
+#--------------------- Hyperparameters of models  ------------------------------
+
+enc:
+  type: residual18
+  kwargs:
+    inner_dims: [4, 4, 4]
+
+dec:
+  type: residual18  # residual of regular
+  kwargs:
+    inner_dims: [4, 4, 4]
+
+
+#--------------------- Hyperparameters of loss function ---------------------------
+
+image_rec_loss:
+  loss_type: relative_perceptual_L1
+  loss_kwargs:
+    weights_per_resolution:
+      16:
+        img_weight: 0
+        feature_weights:
+          r32: 1
+      32:
+        img_weight: 0
+        feature_weights:
+          r32: 1
+      64:
+        img_weight: 0
+        feature_weights:
+          r42: 1
+    use_smooth_pg: True
+
+
+#=========================== CONFIG FOR EVALUATION ===========================
+
+#results_root:
+
+test_batch_size: 32
+
+#test_model_path: ./data/checkpoint/debug/exp_2/anomaly_detection.tar
+
+test_datasets:
+  normal:
+    dataset_type: camelyon16
+    dataset_kwargs:
+      split: test
+#      image_root: ./data/data/camelyon16/x10
+    #  split_root:
+    transform_kwargs:
+      crop_size: 64
+
+  anomaly:
+    dataset_type: camelyon16
+    dataset_kwargs:
+      split: test
+#      image_root: ./data/data/camelyon16/x10
+    #  split_root:
+    transform_kwargs:
+      crop_size: 64

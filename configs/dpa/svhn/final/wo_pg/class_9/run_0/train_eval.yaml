@@ -1,0 +1,102 @@
+adam_kwargs:
+  lr: 0.001
+batch_sizes:
+  32: 128
+checkpoint_root: ./data/checkpoint/dpa/svhn/final/wo_pg/class_9/run_0
+dec:
+  kwargs:
+    inner_dims:
+    - 64
+    - 64
+    - 64
+    - 32
+  type: residual18
+early_stoping_patience: 1000000
+early_stopping_min_delta: 0.001
+early_stopping_patience: 3
+enc:
+  kwargs:
+    inner_dims:
+    - 32
+    - 64
+    - 64
+    - 64
+  type: residual18
+finetune_from: null
+image_dim: 1
+image_rec_loss:
+  loss_kwargs:
+    use_smooth_pg: false
+    weights_per_resolution:
+      32:
+        feature_weights:
+          r42: 1
+        img_weight: 0
+  loss_type: relative_perceptual_L1
+image_sample_iter: 1000
+initial_image_res: 32
+iters_per_res:
+  32:
+    stab: 18000
+latent_dim: 64
+latent_res: 1
+log_iter: 10
+log_root: ./data/logs/dpa/svhn/final/wo_pg/class_9/run_0
+max_image_res: 32
+random_seed: 9918
+results_root: ./data/results/dpa/svhn/final/wo_pg/class_9/run_0
+stab_iter: 100000
+test_batch_size: 32
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      root: ./data/data/svhn
+      split: test
+      target_classes:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      target_indexes_path: null
+    dataset_type: svhn
+    transform_kwargs:
+      to_grayscale: true
+  normal:
+    dataset_kwargs:
+      root: ./data/data/svhn
+      split: test
+      target_classes:
+      - 9
+      target_indexes_path: null
+    dataset_type: svhn
+    transform_kwargs:
+      to_grayscale: true
+test_model_path: ./data/checkpoint/dpa/svhn/final/wo_pg/class_9/run_0/anomaly_detection.tar
+train_dataset:
+  dataset_kwargs:
+    root: ./data/data/svhn
+    split: train
+    target_classes:
+    - 9
+    target_indexes_path: null
+  dataset_type: svhn
+  transform_kwargs:
+    to_grayscale: true
+trns_iter: 0
+val_dataset:
+  dataset_kwargs:
+    root: ./data/data/svhn
+    split: train
+    target_classes:
+    - 9
+    target_indexes_path: null
+  dataset_type: svhn
+  transform_kwargs:
+    to_grayscale: true
+val_iter: 1000000
+verbose: true

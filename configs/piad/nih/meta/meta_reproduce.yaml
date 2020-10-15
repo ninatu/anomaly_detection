@@ -1,0 +1,141 @@
+#=========================== CONFIG FOR TRAINING ===========================
+
+verbose: True
+#random_seed: 4343
+finetune_from:
+
+#checkpoint_root:
+#log_root:
+
+#--------------------- Hyperparameters of training  ------------------------------
+
+image_res: 64
+image_dim: 1
+latent_res: 1
+latent_dim: 256
+
+iters: 100000
+log_iter: 10
+image_sample_iter: 5000
+val_iter: 10000
+update_grad_norm_iter: 100
+
+#early_stopping_patience: 3
+#early_stopping_min_delta: 0.001
+
+#--------------------- Hyperparameters of optimizers ---------------------------
+
+adam_kwargs:
+  enc_dec:
+    lr: 0.0002
+    betas: [0.5, 0.99]
+  edis:
+    lr: 0.0005
+    betas: [0.5, 0.99]
+  ddis:
+    lr: 0.0005
+    betas: [0.5, 0.99]
+
+batch_size: 32
+n_dis: 2
+
+#--------------------- Hyperparameters of dataset  ------------------------------
+
+train_dataset:
+  dataset_type: nih
+  dataset_kwargs:
+    image_root: ./data/data/nih_300/
+    split: train
+  #    split_root: ./folds/train_test_split/nih/normal
+  transform_kwargs:
+    crop_size: 224
+    resize: 64
+    equalize_hist: False
+
+val_dataset:
+  dataset_type: nih
+  dataset_kwargs:
+    image_root: ./data/data/nih_300/
+    split: train
+  #    split_root: ./folds/train_test_split/nih/normal
+  transform_kwargs:
+    crop_size: 224
+    resize: 64
+    equalize_hist: False
+
+#--------------------- Hyperparameters of models  ------------------------------
+
+enc:
+  type: residual9
+  kwargs:
+    inner_dims: [32, 64, 128, 256, 256]
+
+dec:
+  type: residual9
+  kwargs:
+    inner_dims: [256, 256, 128, 64, 32]
+
+ddis:
+  type: residual9
+  kwargs:
+    inner_dims: [32, 64, 128, 128, 128]
+
+edis:
+  kwargs:
+    inner_dims: [1024, 1024]
+#--------------------- Hyperparameters of loss function ---------------------------
+
+
+image_rec_loss:
+  loss_type: relative_perceptual_L1
+  loss_kwargs:
+    img_weight: 0
+    feature_weights:
+      r42: 1
+
+image_adv_loss:
+  loss_type: wasserstein
+  loss_kwargs:
+    lambd: 1
+    gradient_penalty: 10
+    norm_penalty: 0.001
+
+latent_adv_loss:
+  loss_type: wasserstein
+  loss_kwargs:
+    lambd: 1
+    gradient_penalty: 10
+    norm_penalty: 0.001
+
+
+#=========================== CONFIG FOR EVALUATION ===========================
+
+#results_root:
+
+test_batch_size: 32
+
+#test_model_path: ./data/checkpoint/debug/exp_2/anomaly_detection.tar
+
+test_datasets:
+  normal:
+    dataset_type: nih
+    dataset_kwargs:
+      image_root: ./data/data/nih_300/
+      split: test
+    #    split_root: ./folds/train_test_split/nih/normal
+    transform_kwargs:
+      crop_size: 224
+      resize: 64
+      equalize_hist: False
+
+  anomaly:
+    dataset_type: nih
+    dataset_kwargs:
+      image_root: ./data/data/nih_300/
+      split: test
+    #    split_root: ./folds/train_test_split/nih/anomaly
+    transform_kwargs:
+      crop_size: 224
+      resize: 64
+      equalize_hist: False
+

@@ -1,0 +1,11 @@
+class,class_name,valid_class,valid_class_name
+0,airplane,7,horse
+1,automobile,7,horse
+2,bird,4,deer
+3,cat,0,airplane
+4,deer,1,automobile
+5,dog,1,automobile
+6,frog,7,horse
+7,horse,6,frog
+8,ship,4,deer
+9,truck,7,horse

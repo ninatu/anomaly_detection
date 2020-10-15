@@ -1,0 +1,134 @@
+adam_kwargs:
+  ddis:
+    betas:
+    - 0.5
+    - 0.99
+    lr: 0.0005
+  edis:
+    betas:
+    - 0.5
+    - 0.99
+    lr: 0.0005
+  enc_dec:
+    betas:
+    - 0.5
+    - 0.99
+    lr: 0.0002
+batch_size: 32
+checkpoint_root: ./data/checkpoint_tmp/piad/svhn/final/with_cv/class_5/run_0
+ddis:
+  kwargs:
+    inner_dims:
+    - 32
+    - 64
+    - 128
+    - 128
+    - 128
+  type: residual9
+dec:
+  kwargs:
+    inner_dims:
+    - 128
+    - 128
+    - 128
+    - 64
+    - 32
+  type: residual9
+edis:
+  kwargs:
+    inner_dims:
+    - 512
+    - 512
+enc:
+  kwargs:
+    inner_dims:
+    - 32
+    - 64
+    - 128
+    - 128
+    - 128
+  type: residual9
+finetune_from: null
+image_adv_loss:
+  loss_kwargs:
+    gradient_penalty: 10
+    lambd: 1
+    norm_penalty: 0.001
+  loss_type: wasserstein
+image_dim: 1
+image_rec_loss:
+  loss_kwargs:
+    feature_weights:
+      r32: 1
+    img_weight: 0
+  loss_type: relative_perceptual_L1
+image_res: 32
+image_sample_iter: 10000
+iters: 70000
+latent_adv_loss:
+  loss_kwargs:
+    gradient_penalty: 10
+    lambd: 1
+    norm_penalty: 0.001
+  loss_type: wasserstein
+latent_dim: 128
+latent_res: 1
+log_iter: 10
+log_root: ./data/logs_tmp/piad/svhn/final/with_cv/class_5/run_0
+n_dis: 2
+random_seed: 5677
+results_root: ./data/results/piad/svhn/final/with_cv/class_5/run_0
+test_batch_size: 32
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      root: ./data/data/svhn
+      split: test
+      target_classes:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 6
+      - 7
+      - 8
+      - 9
+      target_indexes_path: null
+    dataset_type: svhn
+    transform_kwargs:
+      to_grayscale: true
+  normal:
+    dataset_kwargs:
+      root: ./data/data/svhn
+      split: test
+      target_classes:
+      - 5
+      target_indexes_path: null
+    dataset_type: svhn
+    transform_kwargs:
+      to_grayscale: true
+test_model_path: ./data/checkpoint_tmp/piad/svhn/final/with_cv/class_5/run_0/anomaly_detection.tar
+train_dataset:
+  dataset_kwargs:
+    root: ./data/data/svhn
+    split: train
+    target_classes:
+    - 5
+    target_indexes_path: null
+  dataset_type: svhn
+  transform_kwargs:
+    to_grayscale: true
+update_grad_norm_iter: 100
+val_dataset:
+  dataset_kwargs:
+    root: ./data/data/svhn
+    split: train
+    target_classes:
+    - 5
+    target_indexes_path: null
+  dataset_type: svhn
+  transform_kwargs:
+    to_grayscale: true
+val_iter: 1000000
+verbose: true

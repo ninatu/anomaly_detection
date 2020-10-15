@@ -1,0 +1,132 @@
+#=========================== CONFIG FOR TRAINING ===========================
+
+verbose: True
+#random_seed: 4343
+finetune_from:
+
+#checkpoint_root:
+#log_root:
+
+#--------------------- Hyperparameters of training  ------------------------------
+
+max_image_res: 64
+initial_image_res: 8
+image_dim: 1
+
+latent_res: 1
+#latent_dim: 128
+
+trns_iter: 20000
+stab_iter: 20000
+iters_per_res:
+  64:
+    stab: 1000000
+val_iter: 1000
+log_iter: 10
+image_sample_iter: 1000
+early_stopping_patience: 3
+early_stopping_min_delta: 0.001
+
+#--------------------- Hyperparameters of optimizers ---------------------------
+
+adam_kwargs:
+#  lr:
+
+batch_sizes:
+#  32: 128
+
+#--------------------- Hyperparameters of dataset  ------------------------------
+
+train_dataset:
+  dataset_type: nih
+  dataset_kwargs:
+    split: train
+    image_root: ./data/data/nih_300/
+  #  split_root:
+    cache_data: True
+  transform_kwargs:
+    crop_size: 224
+    resize: 64
+#    equalize_hist: False
+
+val_dataset:
+  dataset_type: nih
+  dataset_kwargs:
+    split: val
+    image_root: ./data/data/nih_300/
+    cache_data: True
+  #  split_root:
+  transform_kwargs:
+    crop_size: 224
+    resize: 64
+#    equalize_hist: True
+
+
+#--------------------- Hyperparameters of models  ------------------------------
+
+enc:
+  type: residual18
+  kwargs:
+#    inner_dims: [128, 128, 128, 128, 128, 128, 128]
+
+dec:
+  type: residual18  # residual of regular
+  kwargs:
+#    inner_dims: [128, 128, 128, 128, 128, 128, 128]
+
+
+#--------------------- Hyperparameters of loss function ---------------------------
+
+image_rec_loss:
+  loss_type: relative_perceptual_L1
+  loss_kwargs:
+    weights_per_resolution:
+      8:
+        img_weight: 0
+        feature_weights:
+          r12: 1
+      16:
+        img_weight: 0
+        feature_weights:
+          r22: 1
+      32:
+        img_weight: 0
+        feature_weights:
+          r32: 1
+      64:
+        img_weight: 0
+        feature_weights:
+#          r42: 1
+    use_smooth_pg: True
+
+
+#=========================== CONFIG FOR EVALUATION ===========================
+
+#results_root:
+
+test_batch_size: 32
+
+#test_model_path: ./data/checkpoint/debug/exp_2/anomaly_detection.tar
+
+test_datasets:
+  normal:
+    dataset_type: nih
+    dataset_kwargs:
+      split: test
+      image_root: ./data/data/nih_300/
+    #  split_root:
+    transform_kwargs:
+      crop_size: 224
+      resize: 64
+  #    equalize_hist: True
+
+  anomaly:
+    dataset_type: nih
+    dataset_kwargs:
+      split: test
+      image_root: ./data/data/nih_300/
+    #  split_root:
+    transform_kwargs:
+      crop_size: 224
+      resize: 64
+  #    equalize_hist: True

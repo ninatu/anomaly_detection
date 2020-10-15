@@ -1,0 +1,102 @@
+adam_kwargs:
+  lr: 0.001
+batch_sizes:
+  64: 128
+checkpoint_root: ./data/checkpoint/dpa/camelyon16/final/wo_pg_with_L1//weight_0.100/class_healthy/run_0
+dec:
+  kwargs:
+    inner_dims:
+    - 4
+    - 4
+    - 4
+    - 4
+    - 4
+    - 4
+    - 4
+  type: residual18
+early_stoping_patience: 1000000
+early_stopping_min_delta: 0.001
+early_stopping_patience: 3
+enc:
+  kwargs:
+    inner_dims:
+    - 4
+    - 4
+    - 4
+    - 4
+    - 4
+    - 4
+    - 4
+  type: residual18
+finetune_from: null
+image_dim: 3
+image_rec_loss:
+  loss_kwargs:
+    loss_1:
+      loss_kwargs:
+        use_smooth_pg: false
+        weights_per_resolution:
+          64:
+            feature_weights:
+              r42: 1
+            img_weight: 0
+      loss_type: relative_perceptual_L1
+      loss_weight: 1
+    loss_2:
+      loss_kwargs: {}
+      loss_type: l1
+      loss_weight: 0.1
+  loss_type: compose
+image_sample_iter: 1000
+initial_image_res: 64
+iters_per_res:
+  64:
+    stab: 34666
+latent_dim: 4
+latent_res: 8
+log_iter: 10
+log_root: ./data/logs/dpa/camelyon16/final/wo_pg_with_L1/weight_0.100/class_healthy/run_0
+max_image_res: 64
+random_seed: 3139
+results_root: ./data/results/dpa/camelyon16/final/wo_pg_with_L1/weight_0.100/class_healthy/run_0
+stab_iter: 100000
+test_batch_size: 32
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      image_root: ./data/data/camelyon16/x10
+      split: test
+      split_root: ./folds/train_test_split/camelyon16/healthy/anomaly/
+    dataset_type: camelyon16
+    transform_kwargs:
+      crop_size: 64
+  normal:
+    dataset_kwargs:
+      image_root: ./data/data/camelyon16/x10
+      split: test
+      split_root: ./folds/train_test_split/camelyon16/healthy/normal/
+    dataset_type: camelyon16
+    transform_kwargs:
+      crop_size: 64
+test_model_path: ./data/checkpoint/dpa/camelyon16/final/wo_pg_with_L1//weight_0.100/class_healthy/run_0/anomaly_detection.tar
+train_dataset:
+  dataset_kwargs:
+    image_root: ./data/data/camelyon16/x10
+    split: train
+    split_root: ./folds/train_test_split/camelyon16/healthy/normal/
+  dataset_type: camelyon16
+  transform_kwargs:
+    crop_size: 64
+    random_crop: true
+    random_flip: true
+trns_iter: 0
+val_dataset:
+  dataset_kwargs:
+    image_root: ./data/data/camelyon16/x10
+    split: train
+    split_root: ./folds/train_test_split/camelyon16/healthy/normal/
+  dataset_type: camelyon16
+  transform_kwargs:
+    crop_size: 64
+val_iter: 1000000
+verbose: true

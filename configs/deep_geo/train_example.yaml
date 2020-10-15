@@ -1,0 +1,28 @@
+# Dir to store checkpoints
+checkpoint_root: "./data/checkpoint/deep_geo/example/"
+
+# Fix random initialization
+random_seed: 4050
+
+# Train parameters
+batch_size: 128
+epochs: 3
+checkpoint_callback: null
+early_stopping_callback: null
+
+# Parameters of train dataset
+train_dataset:
+  # choose type [cifar10, svhn, camelyon16, nih]
+  dataset_type: cifar10
+
+  # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+  dataset_kwargs:
+    split: train
+    root: "./data/data/cifar10"
+    target_classes: [0]
+
+  # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+  transform_kwargs: {}
+
+# Parameters of validation dataset
+val_dataset: null

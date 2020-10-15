@@ -1,0 +1,57 @@
+# Dir to store checkpoints
+test_checkpoint_path: "./data/checkpoint/deep_geo/example/checkpoint.h5"
+
+# Dir to store results
+results_root: "./data/results/deep_geo/example/"
+
+test_batch_size: 1024
+
+# Specify parameters of train dataset AGAIN (it's necessary to estimate parameters of data distribution)
+train_dataset:
+  # choose type [cifar10, svhn, camelyon16, nih]
+  dataset_type: cifar10
+
+  # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+  dataset_kwargs:
+    split: train
+    root: "./data/data/cifar10"
+    target_classes: [0]
+    # target_indexes_path is used only during cross-validation (it's path to indexes for particular fold)
+    target_indexes_path: null
+
+  # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+  transform_kwargs: {}
+
+test_datasets:
+  # specify "normal" test set
+  normal:
+    # choose type [cifar10, svhn, camelyon16, nih]
+    dataset_type: cifar10
+
+    # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+    dataset_kwargs:
+      split: test
+      root: "./data/data/cifar10"
+      target_classes: [0]
+      # target_indexes_path is used only during cross-validation (it's path to indexes for particular fold)
+      target_indexes_path: null
+
+    # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+    transform_kwargs: {}
+
+  # specify "abnormal" test set
+  anomaly:
+    # choose type [cifar10, svhn, camelyon16, nih]
+    dataset_type: cifar10
+
+    # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+    dataset_kwargs:
+      split: train
+      root: "./data/data/cifar10"
+      target_classes: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      # target_indexes_path is used only during cross-validation (it's path to indexes for particular fold)
+      target_indexes_path: null
+
+    # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+    transform_kwargs: {}
+

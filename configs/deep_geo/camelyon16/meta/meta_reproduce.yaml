@@ -1,0 +1,45 @@
+#checkpoint_root: ./data/checkpoint/deep_geo/cifar/repeat_exp/0
+
+#random_seed: 123
+
+batch_size: 128
+epochs: 3
+checkpoint_callback:
+early_stopping_callback:
+
+train_dataset:
+  dataset_type: camelyon16
+  dataset_kwargs:
+    split: train
+    image_root: ./data/data/camelyon16/x10
+  #  split_root:
+  transform_kwargs:
+    crop_size: 64
+
+val_dataset:
+
+
+#results_root: ./data/results/deep_geo/cifar/repeat_exp/0
+#test_checkpoint_path: ./data/checkpoint/deep_geo/cifar/repeat_exp/0/checkpoint.h5
+
+test_batch_size: 128
+
+test_datasets:
+  normal:
+    dataset_type: camelyon16
+    dataset_kwargs:
+      split: test
+      image_root: ./data/data/camelyon16/x10
+    #  split_root:
+    transform_kwargs:
+      crop_size: 64
+
+  anomaly:
+    dataset_type: camelyon16
+    dataset_kwargs:
+      split: test
+      image_root: ./data/data/camelyon16/x10
+    #  split_root:
+    transform_kwargs:
+      crop_size: 64
+

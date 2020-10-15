@@ -1,0 +1,37 @@
+batch_size: 32
+feature_extraction_type: concat
+random_seed: 5632
+results_root: ./data/results/deep_if/cifar/reproduce/class_0/run_0
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      root: ./data/data/cifar10
+      split: test
+      target_classes:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+    dataset_type: cifar10
+    transform_kwargs: {}
+  normal:
+    dataset_kwargs:
+      root: ./data/data/cifar10
+      split: test
+      target_classes:
+      - 0
+    dataset_type: cifar10
+    transform_kwargs: {}
+train_dataset:
+  dataset_kwargs:
+    root: ./data/data/cifar10
+    split: train
+    target_classes:
+    - 0
+  dataset_type: cifar10
+  transform_kwargs: {}

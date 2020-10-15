@@ -1,0 +1,49 @@
+batch_size: 128
+checkpoint_callback: null
+checkpoint_root: ./data/checkpoint/deep_geo/svhn/final/with_cv//class_9/run_1
+early_stopping_callback: null
+epochs: 8
+random_seed: 7276
+results_root: ./data/results/deep_geo/svhn/final/with_cv/class_9/run_1
+test_batch_size: 1024
+test_checkpoint_path: ./data/checkpoint/deep_geo/svhn/final/with_cv//class_9/run_1/checkpoint.h5
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      root: ./data/data/svhn
+      split: test
+      target_classes:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      target_indexes_path: null
+    dataset_type: svhn
+    transform_kwargs:
+      to_grayscale: true
+  normal:
+    dataset_kwargs:
+      root: ./data/data/svhn
+      split: test
+      target_classes:
+      - 9
+      target_indexes_path: null
+    dataset_type: svhn
+    transform_kwargs:
+      to_grayscale: true
+train_dataset:
+  dataset_kwargs:
+    root: ./data/data/svhn
+    split: train
+    target_classes:
+    - 9
+    target_indexes_path: null
+  dataset_type: svhn
+  transform_kwargs:
+    to_grayscale: true
+val_dataset: null

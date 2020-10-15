@@ -1,0 +1,25 @@
+verbose: True
+
+#results_root:
+
+test_batch_size: 32
+
+#test_model_path: ./data/checkpoint/debug/exp_2/anomaly_detection.tar
+
+test_datasets:
+  normal:
+    dataset_type: cifar10
+    dataset_kwargs:
+      root: ./data/data/cifar10
+#      split: train
+#      target_indexes_path:
+    transform_kwargs: {}
+
+  anomaly:
+    dataset_type: cifar10
+    dataset_kwargs:
+      root: ./data/data/cifar10
+#      split: train
+#      target_indexes_path:
+    transform_kwargs: {}
+

@@ -1,0 +1,180 @@
+#=========================== CONFIG FOR TRAINING ===========================
+
+verbose: True
+random_seed: 4343
+finetune_from: null
+
+# dir to store checkpoints
+checkpoint_root: ./data/checkpoint/piad/example
+
+# dir to store logs
+log_root: ./data/logs/piad/example
+
+#--------------------- Hyperparameters of training  ------------------------------
+
+# image resolution
+image_res: 32
+# number of image channels
+image_dim: 3
+
+# resolution and dimension of the latent tensor
+latent_res: 1
+latent_dim: 256
+
+# iters - a number of training iterations
+iters: 100000
+
+# log_iter -- log training losses every "log_iter" iteration
+log_iter: 10
+
+# sample example of images + reconstructed images every "image_sample_iter" iteration
+image_sample_iter: 5000
+
+# val_iter -- perform validation every "val_iter" iteration
+# validation is used only for visualization of losses
+val_iter: 10000
+
+# update_grad_norm_iter -- update gradient information and recompute weight every "update_grad_norm_iter" iteration
+# see "piad" paper for more details
+update_grad_norm_iter: 100
+
+#--------------------- Hyperparameters of optimizers ---------------------------
+
+adam_kwargs:
+  # kwargs for an optimizer of the image discriminator (ddis -- "decoder" discriminator)
+  ddis:
+    betas: [0.5, 0.99]
+    lr: 0.0005
+
+  # kwargs for an optimizer of the latent discriminator (edis -- "encoder" discriminator)
+  edis:
+    betas: [0.5, 0.99]
+    lr: 0.0005
+
+  # kwargs for an optimizer of the encoder and the decoder
+  enc_dec:
+    betas: [0.5, 0.99]
+    lr: 0.0002
+
+batch_size: 32
+# we train n_dis steps of discriminators, and then one step of encoder+decoder
+n_dis: 2
+
+#--------------------- Hyperparameters of dataset  ------------------------------
+
+train_dataset:
+  # choose type [cifar10, svhn, camelyon16, nih]
+  dataset_type: cifar10
+
+  # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+  dataset_kwargs:
+    split: train
+    root: "./data/data/cifar10"
+    target_classes: [0]
+    # target_indexes_path is used only during cross-validation (it's path to indexes for particular fold)
+    target_indexes_path: null
+
+  # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+  transform_kwargs: {}
+
+# val_dataset used only for visualization
+# You can just copy `train_dataset` params to `val_dataset` params (it will not affect anything).
+val_dataset:
+  # choose type [cifar10, svhn, camelyon16, nih]
+  dataset_type: cifar10
+
+  # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+  dataset_kwargs:
+    split: train
+    root: "./data/data/cifar10"
+    target_classes: [0]
+    # target_indexes_path is used only during cross-validation (it's path to indexes for particular fold)
+    target_indexes_path: null
+
+  # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+  transform_kwargs: {}
+
+#--------------------- Hyperparameters of models  ------------------------------
+
+# hyperparameters of encoder
+enc:
+  # choose type [regular, residual9, residual18]
+  type: residual9
+
+  # specify kwargs, see more details in anomaly_detection/dpa/pg_encoders.py
+  kwargs:
+    # inner_dims -- numbers of channels in convolutions
+    # for example if latent res = 1, image res = 64,
+    # encoder consists from blocks of convolution for resolutions:  4, 8, 16, 32, 64
+    # Therefore, you should specify 5 numbers, for example: [32, 64, 128, 256, 512]
+    inner_dims: [64, 128, 256, 256]
+
+# hyperparameters of decoder
+dec:
+  # choose type [regular, residual9, residual18]
+  type: residual9
+
+  # specify kwargs, see more details in anomaly_detection/dpa/pg_decoders.py
+  kwargs:
+    # inner_dims -- numbers of channels in convolutions
+    # for example if latent res = 1, image res = 64,
+    # decoder consists from blocks of convolution for resolutions: 64, 32, 16, 8, 4
+    # Therefore, you should specify 5 numbers, for example: [512, 128, 64, 32, 16]
+    inner_dims: [256, 256, 128, 64]
+
+# hyperparameters of image discriminator
+ddis:
+  # choose type [regular, residual9, residual18]
+  type: residual9
+
+  # specify kwargs, see more details in anomaly_detection/dpa/pg_decoders.py
+  kwargs:
+    # inner_dims -- numbers of channels in convolutions
+    # for example if latent res = 1, image res = 64,
+    # decoder consists from blocks of convolution for resolutions: 64, 32, 16, 8, 4
+    # Therefore, you should specify 5 numbers, for example: [512, 128, 64, 32, 16]
+    inner_dims: [32, 64, 128, 128]
+
+# hyperparameters of latent discriminator
+edis:
+  kwargs:
+    # latent discriminator consists of two fully connected layers, specify the number of neurons
+    inner_dims: [1024, 1024]
+
+
+#--------------------- Hyperparameters of loss function ---------------------------
+
+# image reconstruction loss
+image_rec_loss:
+  # choose type: [perceptual, relative_perceptual_L1, l1, l2, compose]
+  loss_type: relative_perceptual_L1
+
+  # specify kwargs, see more details in anomaly_detection/dpa/rec_losses.py
+  loss_kwargs:
+    img_weight: 0
+    # weights_per_resolution -- a dict of feature layer weights (to compute perceptual loss) for each training resolution
+    feature_weights:
+      # vgg19 convolutions are named as r11, r12, r21, r22, r31, r32, r33, r34, r41, r42, r43, r44, r51, r52, r53, r54
+      # see more details in anomaly_detection/dpa/feature_extractor.py
+      r42: 1
+
+# image adversarial loss
+image_adv_loss:
+  # choose type: [wasserstein, least_squared, nnl]
+  loss_type: wasserstein
+
+  # specify kwargs, see more details in anomaly_detection/dpa/adv_losses.py
+  loss_kwargs:
+    lambd: 1
+    gradient_penalty: 10
+    norm_penalty: 0.001
+
+latent_adv_loss:
+  # choose type: [wasserstein, least_squared, nnl]
+  loss_type: wasserstein
+
+  # specify kwargs, see more details in anomaly_detection/dpa/adv_losses.py
+  loss_kwargs:
+    lambd: 1
+    gradient_penalty: 10
+    norm_penalty: 0.001

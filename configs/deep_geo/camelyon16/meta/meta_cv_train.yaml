@@ -1,0 +1,37 @@
+#checkpoint_root: ./data/checkpoint/deep_geo/cifar/repeat_exp/0
+
+#random_seed: 123
+
+batch_size: 128
+epochs: 10
+checkpoint_callback:
+  save_best_only: False
+  monitor: 'val_acc'
+  verbose: 1
+  period: 1
+
+early_stopping_callback:
+  min_delta: 0.001
+  patience: 1
+
+train_dataset:
+  dataset_type: camelyon16
+  dataset_kwargs:
+#    image_root: ./data/data/nih_300/
+    split: train
+  #    split_root: ./folds/train_test_split/nih/normal
+  transform_kwargs:
+#    crop_size: 224
+#    resize: 64
+#    equalize_hist: False
+
+val_dataset:
+  dataset_type: camelyon16
+  dataset_kwargs:
+#    image_root: ./data/data/nih_300/
+    split: val
+  #    split_root: ./folds/train_test_split/nih/normal
+  transform_kwargs:
+#    crop_size: 224
+#    resize: 64
+#    equalize_hist: False

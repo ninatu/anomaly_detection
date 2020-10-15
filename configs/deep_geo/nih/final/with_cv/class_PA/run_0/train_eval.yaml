@@ -1,0 +1,41 @@
+batch_size: 128
+checkpoint_callback: null
+checkpoint_root: ./data/checkpoint/deep_geo/nih/final/with_cv//class_PA/run_0
+early_stopping_callback: null
+epochs: 1
+random_seed: 818
+results_root: ./data/results/deep_geo/nih/final/with_cv/class_PA/run_0
+test_batch_size: 128
+test_checkpoint_path: ./data/checkpoint/deep_geo/nih/final/with_cv//class_PA/run_0/checkpoint.h5
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      image_root: ./data/data/nih_300/
+      split: test
+      split_root: ./folds/train_test_split/nih/PA/anomaly/
+    dataset_type: nih
+    transform_kwargs:
+      crop_size: 224
+      equalize_hist: true
+      resize: 64
+  normal:
+    dataset_kwargs:
+      image_root: ./data/data/nih_300/
+      split: test
+      split_root: ./folds/train_test_split/nih/PA/normal/
+    dataset_type: nih
+    transform_kwargs:
+      crop_size: 224
+      equalize_hist: true
+      resize: 64
+train_dataset:
+  dataset_kwargs:
+    image_root: ./data/data/nih_300/
+    split: train
+    split_root: ./data/data/info/folds_with_val/nih_infiltration//PA/0/normal/
+  dataset_type: nih
+  transform_kwargs:
+    crop_size: 224
+    equalize_hist: true
+    resize: 64
+val_dataset: null

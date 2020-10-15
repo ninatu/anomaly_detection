@@ -1,0 +1,31 @@
+#=========================== CONFIG FOR EVALUATION ===========================
+
+#results_root:
+
+test_batch_size: 32
+
+#test_model_path: ./data/checkpoint/debug/exp_2/anomaly_detection.tar
+
+test_datasets:
+  normal:
+    dataset_type: nih
+    dataset_kwargs:
+      image_root: ./data/data/nih_300/
+      split: test
+    #    split_root: ./folds/train_test_split/nih/normal
+    transform_kwargs:
+      crop_size: 224
+      resize: 64
+      equalize_hist: False
+
+  anomaly:
+    dataset_type: nih
+    dataset_kwargs:
+      image_root: ./data/data/nih_300/
+      split: test
+    #    split_root: ./folds/train_test_split/nih/anomaly
+    transform_kwargs:
+      crop_size: 224
+      resize: 64
+      equalize_hist: False
+

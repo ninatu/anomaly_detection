@@ -1,0 +1,34 @@
+#random_seed: 1234
+#results_root: ./data/results/deep_if/cifar/repeat_exp/0
+
+batch_size: 32
+#feature_extraction_type: concat
+
+train_dataset:
+  dataset_type: camelyon16
+  dataset_kwargs:
+    split: train
+#    image_root: ./data/data/camelyon16/x10
+  #  split_root:
+  transform_kwargs:
+#    crop_size: 64
+
+test_datasets:
+  normal:
+    dataset_type: camelyon16
+    dataset_kwargs:
+      split: test
+#      image_root: ./data/data/camelyon16/x10
+    #  split_root:
+    transform_kwargs:
+      crop_size: 64
+
+  anomaly:
+    dataset_type: camelyon16
+    dataset_kwargs:
+      split: test
+#      image_root: ./data/data/camelyon16/x10
+    #  split_root:
+    transform_kwargs:
+#      crop_size: 64
+

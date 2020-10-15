@@ -1,0 +1,40 @@
+batch_size: 32
+feature_extraction_type: mixed_7a
+random_seed: 9052
+results_root: ./data/results/deep_if/cifar10/final/with_cv/class_6/run_1
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      root: ./data/data/cifar10
+      split: test
+      target_classes:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 7
+      - 8
+      - 9
+      target_indexes_path: null
+    dataset_type: cifar10
+    transform_kwargs: {}
+  normal:
+    dataset_kwargs:
+      root: ./data/data/cifar10
+      split: test
+      target_classes:
+      - 6
+      target_indexes_path: null
+    dataset_type: cifar10
+    transform_kwargs: {}
+train_dataset:
+  dataset_kwargs:
+    root: ./data/data/cifar10
+    split: train
+    target_classes:
+    - 6
+    target_indexes_path: null
+  dataset_type: cifar10
+  transform_kwargs: {}

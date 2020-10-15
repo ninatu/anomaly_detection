@@ -1,0 +1,31 @@
+#checkpoint_root: ./data/checkpoint/deep_geo/cifar/repeat_exp/0
+
+#random_seed: 123
+
+batch_size: 128
+epochs: 100
+checkpoint_callback:
+  save_best_only: False
+  monitor: 'val_acc'
+  verbose: 1
+  period: 1
+
+early_stopping_callback:
+  min_delta: 0.001
+  patience: 3
+
+train_dataset:
+  dataset_type: cifar10
+  dataset_kwargs:
+    root: ./data/data/cifar10
+#    target_classes: [0]
+#    split: train
+  transform_kwargs: {}
+
+val_dataset:
+  dataset_type: cifar10
+  dataset_kwargs:
+    root: ./data/data/cifar10
+  #    target_classes: [0]
+  #    split: train
+  transform_kwargs: {}

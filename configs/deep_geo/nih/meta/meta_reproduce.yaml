@@ -1,0 +1,51 @@
+#checkpoint_root: ./data/checkpoint/deep_geo/cifar/repeat_exp/0
+
+#random_seed: 123
+
+batch_size: 128
+epochs: 3
+checkpoint_callback:
+early_stopping_callback:
+
+train_dataset:
+  dataset_type: nih
+  dataset_kwargs:
+    image_root: ./data/data/nih_300/
+    split: train
+  #    split_root: ./folds/train_test_split/nih/normal
+  transform_kwargs:
+    crop_size: 224
+    resize: 64
+    equalize_hist: False
+
+val_dataset:
+
+
+#results_root: ./data/results/deep_geo/cifar/repeat_exp/0
+#test_checkpoint_path: ./data/checkpoint/deep_geo/cifar/repeat_exp/0/checkpoint.h5
+
+test_batch_size: 128
+
+test_datasets:
+  normal:
+    dataset_type: nih
+    dataset_kwargs:
+      image_root: ./data/data/nih_300/
+      split: test
+    #    split_root: ./folds/train_test_split/nih/normal
+    transform_kwargs:
+      crop_size: 224
+      resize: 64
+      equalize_hist: False
+
+  anomaly:
+    dataset_type: nih
+    dataset_kwargs:
+      image_root: ./data/data/nih_300/
+      split: test
+    #    split_root: ./folds/train_test_split/nih/anomaly
+    transform_kwargs:
+      crop_size: 224
+      resize: 64
+      equalize_hist: False
+

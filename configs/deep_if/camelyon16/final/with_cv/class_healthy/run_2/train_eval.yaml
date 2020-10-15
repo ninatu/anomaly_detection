@@ -1,0 +1,29 @@
+batch_size: 32
+feature_extraction_type: conv2d_7b
+random_seed: 9240
+results_root: ./data/results/deep_if/camelyon16/final/with_cv/class_healthy/run_2
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      image_root: ./data/data/camelyon16/x40
+      split: test
+      split_root: ./folds/train_test_split/camelyon16/healthy/anomaly/
+    dataset_type: camelyon16
+    transform_kwargs:
+      crop_size: 256
+  normal:
+    dataset_kwargs:
+      image_root: ./data/data/camelyon16/x40
+      split: test
+      split_root: ./folds/train_test_split/camelyon16/healthy/normal/
+    dataset_type: camelyon16
+    transform_kwargs:
+      crop_size: 256
+train_dataset:
+  dataset_kwargs:
+    image_root: ./data/data/camelyon16/x40
+    split: train
+    split_root: ./folds/train_test_split/camelyon16/healthy/normal/
+  dataset_type: camelyon16
+  transform_kwargs:
+    crop_size: 256

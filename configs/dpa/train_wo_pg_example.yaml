@@ -1,0 +1,142 @@
+# EXAMPLE OF CONFIG FOR TRAINING WITHOUT PROGRESSIVE GROWING
+
+#=========================== CONFIG FOR TRAINING ===========================
+
+verbose: True
+random_seed: 4343
+finetune_from:
+
+# dir to store checkpoints
+checkpoint_root: "./data/checkpoint/dpa/wo_pg_example"
+# dir to store logs
+log_root: "./data/logs/dpa/wo_pg_example"
+
+#--------------------- Hyperparameters of training  ------------------------------
+
+# maximum image resolution
+max_image_res: 32
+# initial image resolution (used in progressive growing training)
+initial_image_res: 32
+# number of image channels
+image_dim: 3
+
+# resolution and dimension of the latent tensor
+latent_res: 1
+latent_dim: 32
+
+# Setting for progressive growing training
+# trns_iter -- the number of iterations in the "transition phase" (gradual doubling of the resolution)
+# stab_iter -- the number of iterations in the "stable phase", training on the fix resolution
+# iters_per_res: use only if you want to specify different trns_iter of stab_iter for particular resolution.
+# Example:
+# iters_per_res:
+#   64:
+#     trns: 1000
+#     stab: 2000
+trns_iter: 0
+stab_iter: 20000
+iters_per_res: {}
+
+# val_iter -- perform validation every "val_iter" iteration
+# (just to demonstrate losses in plots, and for early stopping in the last phase of training(max resolution, stab phase))
+val_iter: 1000000
+# early stopping used only the last phase of training (max resolution, stab phase)
+# early stopping was used only during cross-validation
+early_stopping_patience: 1000000
+early_stopping_min_delta: 0.001
+
+# log_iter -- log training losses every "log_iter" iteration
+log_iter: 10
+
+# sample example of images + reconstructed images every "image_sample_iter" iteration
+image_sample_iter: 1000
+
+#--------------------- Hyperparameters of optimizers ---------------------------
+
+adam_kwargs:
+  lr: 0.002
+
+# specify batch_sizes for each resolution (from initial_image_res to max_image_res)
+batch_sizes:
+  32: 128
+
+#--------------------- Hyperparameters of dataset  ------------------------------
+
+train_dataset:
+  # choose type [cifar10, svhn, camelyon16, nih]
+  dataset_type: cifar10
+
+  # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+  dataset_kwargs:
+    split: train
+    root: "./data/data/cifar10"
+    target_classes: [0]
+    # target_indexes_path is used only during cross-validation (it's path to indexes for particular fold)
+    target_indexes_path: null
+
+  # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+  transform_kwargs: {}
+
+# val_dataset mean something only during cross-validation only (for early stopping, for example).
+# Just copy `train_dataset` params to `val_dataset` params (it will not affect anything).
+val_dataset:
+  # choose type [cifar10, svhn, camelyon16, nih]
+  dataset_type: cifar10
+
+  # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+  dataset_kwargs:
+    split: train
+    root: "./data/data/cifar10"
+    target_classes: [0]
+    # target_indexes_path is used only during cross-validation (it's path to indexes for particular fold)
+    target_indexes_path: null
+
+  # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+  transform_kwargs: {}
+
+#--------------------- Hyperparameters of models  ------------------------------
+
+# hyperparameters of encoder
+enc:
+  # choose type [regular, residual9, residual18]
+  type: residual18
+
+  # specify kwargs, see more details in anomaly_detection/dpa/pg_encoders.py
+  kwargs:
+    # inner_dims -- numbers of channels in convolutions
+    # for example if latent res = 1, image res = 64,
+    # encoder consists from blocks of convolution for resolutions:  4, 8, 16, 32, 64
+    # Therefore, you should specify 5 numbers, for example: [32, 64, 128, 256, 512]
+    inner_dims: [32, 32, 32, 32]
+
+# hyperparameters of decoder
+dec:
+  # choose type [regular, residual9, residual18]
+  type: residual18
+
+  # specify kwargs, see more details in anomaly_detection/dpa/pg_decoders.py
+  kwargs:
+    # inner_dims -- numbers of channels in convolutions
+    # for example if latent res = 1, image res = 64,
+    # decoder consists from blocks of convolution for resolutions: 64, 32, 16, 8, 4
+    # Therefore, you should specify 5 numbers, for example: [512, 128, 64, 32, 16]
+    inner_dims: [32, 32, 32, 32]
+
+#--------------------- Hyperparameters of loss function ---------------------------
+
+
+image_rec_loss:
+  # choose type: [perceptual, relative_perceptual_L1, l1, l2, compose]
+  loss_type: relative_perceptual_L1
+
+  # specify kwargs, see more details in anomaly_detection/dpa/pg_rec_losses.py
+  loss_kwargs:
+    # weights_per_resolution -- a dict of feature layer weights (to compute perceptual loss) for each training resolution
+    weights_per_resolution:
+      32: # this is resolution
+        img_weight: 0
+        # vgg19 convolutions are named as r11, r12, r21, r22, r31, r32, r33, r34, r41, r42, r43, r44, r51, r52, r53, r54
+        # see more details in anomaly_detection/dpa/feature_extractor.py
+        feature_weights:
+          r32: 1
+    use_smooth_pg: False

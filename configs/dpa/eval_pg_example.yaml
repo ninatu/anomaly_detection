@@ -1,0 +1,46 @@
+#=========================== CONFIG FOR EVALUATION ===========================
+
+# dir to store results
+results_root: "./data/results/dpa/pg_example"
+
+test_batch_size: 32
+
+# path to model
+test_model_path: "./data/checkpoint/dpa/pg_example/anomaly_detection.tar"
+
+test_datasets:
+  # specify "normal" test set
+  normal:
+    # choose type [cifar10, svhn, camelyon16, nih]
+    dataset_type: nih
+
+    # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+    dataset_kwargs:
+      image_root: "./data/data/nih_256"
+      split_root: "./folds/train_test_split/nih/subset/normal/"
+      split: test
+      cache_data: false
+
+    # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+    transform_kwargs:
+      crop_size: 224
+      equalize_hist: false
+      resize: 64
+
+  # specify "abnormal" test set
+  anomaly:
+    # choose type [cifar10, svhn, camelyon16, nih]
+    dataset_type: nih
+
+    # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+    dataset_kwargs:
+      image_root: "./data/data/nih_256"
+      split_root: "./folds/train_test_split/nih/subset/abnormal/"
+      split: test
+      cache_data: false
+
+    # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+    transform_kwargs:
+      crop_size: 224
+      equalize_hist: false
+      resize: 64

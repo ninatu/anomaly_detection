@@ -1,0 +1,29 @@
+#results_root: ./data/results/deep_geo/cifar/repeat_exp/0
+#test_checkpoint_path: ./data/checkpoint/deep_geo/cifar/repeat_exp/0/checkpoint.h5
+
+test_batch_size: 1024
+
+train_dataset:
+  dataset_type: cifar10
+  dataset_kwargs:
+    root: ./data/data/cifar10
+#    target_classes: [0]
+#    split: train
+  transform_kwargs: {}
+
+test_datasets:
+  normal:
+    dataset_type: cifar10
+    dataset_kwargs:
+      root: ./data/data/cifar10
+#      target_classes: [0]
+#      split: test
+    transform_kwargs: {}
+  anomaly:
+    dataset_type: cifar10
+    dataset_kwargs:
+      root: ./data/data/cifar10
+#      target_classes: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+#      split: test
+    transform_kwargs: {}
+

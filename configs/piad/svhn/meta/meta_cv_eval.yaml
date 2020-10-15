@@ -1,0 +1,24 @@
+verbose: True
+
+#results_root:
+
+test_batch_size: 32
+
+#test_model_path: ./data/checkpoint/debug/exp_2/anomaly_detection.tar
+
+test_datasets:
+  normal:
+    dataset_type: svhn
+    dataset_kwargs:
+      root: ./data/data/svhn
+#      split: train
+#      target_indexes_path:
+    transform_kwargs: {}
+
+  anomaly:
+    dataset_type: svhn
+    dataset_kwargs:
+      root: ./data/data/svhn
+#      split: train
+#      target_indexes_path:
+    transform_kwargs: {}

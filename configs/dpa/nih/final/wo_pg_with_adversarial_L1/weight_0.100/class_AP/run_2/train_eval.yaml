@@ -1,0 +1,126 @@
+adam_kwargs:
+  lr: 0.0002
+batch_size: 32
+batch_sizes:
+  64: 56
+checkpoint_root: ./data/checkpoint/dpa/nih/final/wo_pg_with_adversarial_L1/weight_0.100/class_AP/run_2
+ddis:
+  kwargs: &id001
+    inner_dims:
+    - 32
+    - 32
+    - 64
+    - 64
+    - 64
+    - 64
+    - 64
+  type: residual18
+dec:
+  kwargs:
+    inner_dims:
+    - 64
+    - 64
+    - 64
+    - 64
+    - 64
+    - 32
+    - 32
+  type: residual18
+early_stoping_patience: 1000000
+early_stopping_min_delta: 0.001
+early_stopping_patience: 3
+enc:
+  kwargs: *id001
+  type: residual18
+finetune_from: null
+image_adv_loss:
+  loss_kwargs:
+    gradient_penalty: 10
+    lambd: 1
+    norm_penalty: 0.001
+  loss_type: wasserstein
+image_dim: 1
+image_rec_loss:
+  loss_kwargs:
+    loss_1:
+      loss_kwargs:
+        use_smooth_pg: false
+        weights_per_resolution:
+          64:
+            feature_weights:
+              r32: 1
+            img_weight: 0
+      loss_type: relative_perceptual_L1
+      loss_weight: 1
+    loss_2:
+      loss_kwargs: {}
+      loss_type: l1
+      loss_weight: 0.1
+  loss_type: compose
+image_sample_iter: 1000
+initial_image_res: 64
+iters_per_res:
+  64:
+    stab: 27000
+latent_dim: 64
+latent_res: 1
+log_iter: 10
+log_root: ./data/logs/dpa/nih/final/wo_pg_with_adversarial_L1/weight_0.100/class_AP/run_2
+loss_weights:
+  image_adv_loss: 0.1
+  image_rec_loss: 1
+max_image_res: 64
+n_dis: 2
+random_seed: 6638
+results_root: ./data/results/dpa/nih/final/wo_pg_with_adversarial_L1/weight_0.100/class_AP/run_2
+stab_iter: 100000
+test_batch_size: 32
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      cache_data: false
+      image_root: ./data/data/nih_300/
+      split: test
+      split_root: ./folds/train_test_split/nih/AP/anomaly/
+    dataset_type: nih
+    transform_kwargs:
+      crop_size: 224
+      equalize_hist: true
+      resize: 64
+  normal:
+    dataset_kwargs:
+      cache_data: false
+      image_root: ./data/data/nih_300/
+      split: test
+      split_root: ./folds/train_test_split/nih/AP/normal/
+    dataset_type: nih
+    transform_kwargs:
+      crop_size: 224
+      equalize_hist: true
+      resize: 64
+test_model_path: ./data/checkpoint/dpa/nih/final/wo_pg_with_adversarial_L1/weight_0.100/class_AP/run_2/anomaly_detection.tar
+train_dataset:
+  dataset_kwargs:
+    cache_data: false
+    image_root: ./data/data/nih_300/
+    split: train
+    split_root: ./folds/train_test_split/nih/AP/normal/
+  dataset_type: nih
+  transform_kwargs:
+    crop_size: 224
+    equalize_hist: true
+    resize: 64
+trns_iter: 0
+val_dataset:
+  dataset_kwargs:
+    cache_data: false
+    image_root: ./data/data/nih_300/
+    split: train
+    split_root: ./folds/train_test_split/nih/AP/normal/
+  dataset_type: nih
+  transform_kwargs:
+    crop_size: 224
+    equalize_hist: true
+    resize: 64
+val_iter: 1000000
+verbose: true

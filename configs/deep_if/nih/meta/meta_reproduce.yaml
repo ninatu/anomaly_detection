@@ -1,0 +1,40 @@
+#random_seed: 1234
+#results_root: ./data/results/deep_if/cifar/repeat_exp/0
+
+batch_size: 32
+feature_extraction_type: concat
+
+train_dataset:
+  dataset_type: nih
+  dataset_kwargs:
+    image_root: ./data/data/nih_300/
+    split: train
+  #    split_root: ./folds/train_test_split/nih/normal
+  transform_kwargs:
+    crop_size: 224
+    resize: 64
+    equalize_hist: False
+
+test_datasets:
+  normal:
+    dataset_type: nih
+    dataset_kwargs:
+      image_root: ./data/data/nih_300/
+      split: test
+    #    split_root: ./folds/train_test_split/nih/normal
+    transform_kwargs:
+      crop_size: 224
+      resize: 64
+      equalize_hist: False
+
+  anomaly:
+    dataset_type: nih
+    dataset_kwargs:
+      image_root: ./data/data/nih_300/
+      split: test
+    #    split_root: ./folds/train_test_split/nih/anomaly
+    transform_kwargs:
+      crop_size: 224
+      resize: 64
+      equalize_hist: False
+

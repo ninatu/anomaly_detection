@@ -1,0 +1,42 @@
+#=========================== CONFIG FOR EVALUATION ===========================
+
+# dir to store results
+results_root: ./data/results/piad/example
+
+# path to model
+test_model_path: ./data/checkpoint/piad/example/anomaly_detection.tar
+
+test_batch_size: 32
+
+test_datasets:
+  # specify "normal" test set
+  normal:
+    # choose type [cifar10, svhn, camelyon16, nih]
+    dataset_type: cifar10
+
+    # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+    dataset_kwargs:
+      split: test
+      root: "./data/data/cifar10"
+      target_classes: [ 0 ]
+      # target_indexes_path is used only during cross-validation (it's path to indexes for particular fold)
+      target_indexes_path: null
+
+    # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+    transform_kwargs: { }
+
+  # specify "abnormal" test set
+  anomaly:
+    # choose type [cifar10, svhn, camelyon16, nih]
+    dataset_type: cifar10
+
+    # specify kwargs, see more details in anomaly_detection/utils/datasets.py
+    dataset_kwargs:
+      split: train
+      root: "./data/data/cifar10"
+      target_classes: [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+      # target_indexes_path is used only during cross-validation (it's path to indexes for particular fold)
+      target_indexes_path: null
+
+    # specify transform kwargs, see more details in anomaly_detection/utils/transforms.py
+    transform_kwargs: { }

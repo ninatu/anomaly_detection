@@ -1,0 +1,29 @@
+#=========================== CONFIG FOR EVALUATION ===========================
+
+verbose: True
+
+#results_root:
+
+test_batch_size: 32
+
+#test_model_path: ./data/checkpoint/debug/exp_2/anomaly_detection.tar
+
+test_datasets:
+  normal:
+    dataset_type: camelyon16
+    dataset_kwargs:
+      split: test
+      image_root: ./data/data/camelyon16/x10
+    #  split_root:
+    transform_kwargs:
+      crop_size: 64
+
+  anomaly:
+    dataset_type: camelyon16
+    dataset_kwargs:
+      split: test
+      image_root: ./data/data/camelyon16/x10
+    #  split_root:
+    transform_kwargs:
+      crop_size: 64
+

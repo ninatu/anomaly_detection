@@ -1,0 +1,37 @@
+batch_size: 32
+feature_extraction_type: concat
+random_seed: 6289
+results_root: ./data/results/deep_if/svhn/final/reproduce/class_4/run_0
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      root: ./data/data/svhn
+      split: test
+      target_classes:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+    dataset_type: svhn
+    transform_kwargs: {}
+  normal:
+    dataset_kwargs:
+      root: ./data/data/svhn
+      split: test
+      target_classes:
+      - 4
+    dataset_type: svhn
+    transform_kwargs: {}
+train_dataset:
+  dataset_kwargs:
+    root: ./data/data/svhn
+    split: train
+    target_classes:
+    - 4
+  dataset_type: svhn
+  transform_kwargs: {}

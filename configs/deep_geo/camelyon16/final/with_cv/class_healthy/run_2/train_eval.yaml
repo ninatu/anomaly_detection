@@ -1,0 +1,35 @@
+batch_size: 128
+checkpoint_callback: null
+checkpoint_root: ./data/checkpoint/deep_geo/camelyon16/final/with_cv//class_healthy/run_2
+early_stopping_callback: null
+epochs: 2
+random_seed: 6279
+results_root: ./data/results/deep_geo/camelyon16/final/with_cv/class_healthy/run_2
+test_batch_size: 128
+test_checkpoint_path: ./data/checkpoint/deep_geo/camelyon16/final/with_cv//class_healthy/run_2/checkpoint.h5
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      image_root: ./data/data/camelyon16/x10
+      split: test
+      split_root: ./folds/train_test_split/camelyon16/healthy/anomaly/
+    dataset_type: camelyon16
+    transform_kwargs:
+      crop_size: 64
+  normal:
+    dataset_kwargs:
+      image_root: ./data/data/camelyon16/x10
+      split: test
+      split_root: ./folds/train_test_split/camelyon16/healthy/normal/
+    dataset_type: camelyon16
+    transform_kwargs:
+      crop_size: 64
+train_dataset:
+  dataset_kwargs:
+    image_root: ./data/data/camelyon16/x10
+    split: train
+    split_root: ./folds/train_test_split/camelyon16/healthy/normal/
+  dataset_type: camelyon16
+  transform_kwargs:
+    crop_size: 64
+val_dataset: null

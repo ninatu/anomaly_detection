@@ -1,0 +1,122 @@
+adam_kwargs:
+  ddis:
+    betas:
+    - 0.5
+    - 0.99
+    lr: 0.0005
+  edis:
+    betas:
+    - 0.5
+    - 0.99
+    lr: 0.0005
+  enc_dec:
+    betas:
+    - 0.5
+    - 0.99
+    lr: 0.0002
+batch_size: 32
+checkpoint_root: ./data/checkpoint/piad/cifar10/final/reproduce/class_2/run_2
+ddis:
+  kwargs:
+    inner_dims:
+    - 32
+    - 64
+    - 128
+    - 128
+  type: residual9
+dec:
+  kwargs:
+    inner_dims:
+    - 256
+    - 256
+    - 128
+    - 64
+  type: residual9
+edis:
+  kwargs:
+    inner_dims:
+    - 1024
+    - 1024
+enc:
+  kwargs:
+    inner_dims:
+    - 64
+    - 128
+    - 256
+    - 256
+  type: residual9
+finetune_from: null
+image_adv_loss:
+  loss_kwargs:
+    gradient_penalty: 10
+    lambd: 1
+    norm_penalty: 0.001
+  loss_type: wasserstein
+image_dim: 3
+image_rec_loss:
+  loss_kwargs:
+    feature_weights:
+      r42: 1
+    img_weight: 0
+  loss_type: relative_perceptual_L1
+image_res: 32
+image_sample_iter: 5000
+initial_image_res: 32
+iters: 100000
+latent_adv_loss:
+  loss_kwargs:
+    gradient_penalty: 10
+    lambd: 1
+    norm_penalty: 0.001
+  loss_type: wasserstein
+latent_dim: 256
+latent_res: 1
+log_iter: 10
+log_root: ./data/logs/piad/cifar10/final/reproduce/class_2/run_2
+n_dis: 2
+random_seed: 3656
+results_root: ./data/results/piad/cifar10/final/reproduce/class_2/run_2
+test_batch_size: 32
+test_datasets:
+  anomaly:
+    dataset_kwargs:
+      root: ./data/data/cifar10
+      split: test
+      target_classes:
+      - 0
+      - 1
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+    dataset_type: cifar10
+    transform_kwargs: {}
+  normal:
+    dataset_kwargs:
+      root: ./data/data/cifar10
+      split: test
+      target_classes:
+      - 2
+    dataset_type: cifar10
+    transform_kwargs: {}
+test_model_path: ./data/checkpoint/piad/cifar10/final/reproduce/class_2/run_2/anomaly_detection.tar
+train_dataset:
+  dataset_kwargs:
+    root: ./data/data/cifar10
+    split: train
+    target_classes:
+    - 2
+  dataset_type: cifar10
+  transform_kwargs: {}
+update_grad_norm_iter: 100
+val_dataset:
+  dataset_kwargs:
+    root: ./data/data/cifar10
+    split: train
+  dataset_type: cifar10
+  transform_kwargs: {}
+val_iter: 5000
+verbose: true
