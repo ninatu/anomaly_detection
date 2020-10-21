@@ -42,7 +42,7 @@ It includes experiments reported in the paper.
         |   ...
         └───piad - configs used to train piad models
         |   ...
-     camelyon16_preprocessing -- Script to preprocess Camelyon16 dataset
+     camelyon16_preprocessing -- Scripts for preprocessing Camelyon16 dataset
      folds -- Folds used in cross-validation, train/test split of NIH and Camelyon16, validation info 
      
 ## Installation 
@@ -85,7 +85,7 @@ See the configs for more details.
 
 Try:
 ```bash
-python anomaly_detection/dpa/main.py train_eval configs/dpa/trn_wo_pg_example.yaml configs/dpa/eval_wo_pg_example.yaml
+python anomaly_detection/dpa/main.py train_eval configs/dpa/train_wo_pg_example.yaml configs/dpa/eval_wo_pg_example.yaml
 ```
 
 To reproduce all experiments of the paper, run:
