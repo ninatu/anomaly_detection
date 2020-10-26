@@ -1,18 +1,3 @@
-# path to target image (source for stain normalization)
-
-# paths to normalized patches
-NORMED_NORMAL_PATCHES_TRAIN_DIR = '/data_hdd1/ninatu/data/camelyon16/miccai/train/normal_patches_x40_vah_norm'
-NORMED_NORMAL_PATCHES_TEST_DIR = '/data_hdd1/ninatu/data/camelyon16/miccai/test/normal_patches_x40_vah_norm'
-NORMED_TUMOR_PATCHES_TRAIN_DIR = '/data_hdd1/ninatu/data/camelyon16/miccai/train/tumor_patches_x40_vah_norm'
-NORMED_TUMOR_PATCHES_TEST_DIR = '/data_hdd1/ninatu/data/camelyon16/miccai/test/tumor_patches_x40_vah_norm'
-
-# paths to not normalized patches
-OUTPUT_NORMED_NORMAL_PATCHES_TRAIN_DIR_X20 = '/data_hdd1/ninatu/data/camelyon16/miccai/train/normal_patches_x20_vah_norm'
-OUTPUT_NORMED_NORMAL_PATCHES_TEST_DIR_X20 = '/data_hdd1/ninatu/data/camelyon16/miccai/test/normal_patches_x20_vah_norm'
-OUTPUT_NORMED_TUMOR_PATCHES_TRAIN_DIR_X20 = '/data_hdd1/ninatu/data/camelyon16/miccai/train/tumor_patches_x20_vah_norm'
-OUTPUT_NORMED_TUMOR_PATCHES_TEST_DIR_X20 = '/data_hdd1/ninatu/data/camelyon16/miccai/test/tumor_patches_x20_vah_norm'
-
-
 import skimage.io
 import skimage.transform
 import os

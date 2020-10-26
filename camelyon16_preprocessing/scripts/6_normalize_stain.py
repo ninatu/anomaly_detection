@@ -6,7 +6,7 @@ import argparse
 
 sys.path.append('./')
 
-from stain_noramalization.normalizer import VahadaneNormalizer
+from stain_normalization.normalizer import VahadaneNormalizer
 
 
 def process_all_files(input_dir, output_dir):

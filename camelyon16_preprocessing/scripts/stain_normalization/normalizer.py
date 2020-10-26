@@ -20,7 +20,7 @@ import sys
 
 sys.path.append('./')
 
-import stain_noramalization.utils as ut
+import stain_normalization.utils as ut
 
 
 def get_stain_matrix(I, threshold=0.8, lamda=0.1):
