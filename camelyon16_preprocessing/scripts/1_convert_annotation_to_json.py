@@ -25,7 +25,7 @@ def convert_camelyon_annotation_to_json(input_path, output_path):
     json_dict['normal'] = []
 
     for annotation in annotations_tumor:
-        X = list(map(lambda x: float(x.get('x')),
+        X = list(map(lambda x: float(x.get('X')),
                  annotation.findall('./Coordinates/Coordinate')))
         Y = list(map(lambda x: float(x.get('Y')),
                  annotation.findall('./Coordinates/Coordinate')))
@@ -34,7 +34,7 @@ def convert_camelyon_annotation_to_json(input_path, output_path):
         json_dict['tumor'].append({'name': name, 'vertices': vertices})
 
     for annotation in annotations_normal:
-        X = list(map(lambda x: float(x.get('x')),
+        X = list(map(lambda x: float(x.get('X')),
                  annotation.findall('./Coordinates/Coordinate')))
         Y = list(map(lambda x: float(x.get('Y')),
                  annotation.findall('./Coordinates/Coordinate')))
