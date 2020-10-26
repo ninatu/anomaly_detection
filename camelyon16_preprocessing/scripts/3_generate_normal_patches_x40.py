@@ -10,7 +10,7 @@ import argparse
 import sys
 
 sys.path.append('./')
-from anomaly_detection.utils import get_tissue_mask, preprocess_normal_mask_decrease_thrice, \
+from utils import get_tissue_mask, preprocess_normal_mask_decrease_thrice, \
     sample_tissue_pixels, PATCH_NAME_FORMAT
 
 

@@ -12,7 +12,7 @@ import sys
 
 sys.path.append('./')
 
-from anomaly_detection.utils import PATCH_NAME_PAT, TUMOR_LABEL, NORMAL_LABEL, \
+from utils import PATCH_NAME_PAT, TUMOR_LABEL, NORMAL_LABEL, \
     preprocess_normal_mask_decrease_thrice, preprocess_tumor_mask_decrease_thrice, \
     get_tissue_mask, get_tissue_bb
 

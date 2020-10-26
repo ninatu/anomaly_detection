@@ -7,7 +7,7 @@ import argparse
 import sys
 
 sys.path.append('./')
-from anomaly_detection.utils import TUMOR_LABEL, NORMAL_LABEL
+from utils import TUMOR_LABEL, NORMAL_LABEL
 
 
 def create_mask_x40(annotation, slide_w, slide_h):

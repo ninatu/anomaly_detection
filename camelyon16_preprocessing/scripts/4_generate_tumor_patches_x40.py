@@ -14,7 +14,7 @@ import sys
 
 sys.path.append('./')
 
-from anomaly_detection.utils import get_tissue_mask, preprocess_tumor_mask_decrease_thrice, \
+from utils import get_tissue_mask, preprocess_tumor_mask_decrease_thrice, \
     sample_tissue_pixels, PATCH_NAME_FORMAT, TUMOR_LABEL
 
 
