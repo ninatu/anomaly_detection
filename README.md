@@ -1,15 +1,18 @@
-# Anomaly Detection with Deep Perceptual Autoencoders — Pytorch Implementation
+# Anomaly Detection in Medical Imaging With Deep Perceptual Autoencoders — Pytorch Implementation
 
 [![License][license-shield]][license-url]
 
-**Anomaly Detection with Deep Perceptual Autoencoders**<br>
+**Anomaly Detection in Medical Imaging With Deep Perceptual Autoencoders**<br>
 Nina Tuluptceva, Bart Bakker, Irina Fedulova, Heinrich Schulz, and Dmitry V. Dylov.<br>
-2020<br>
+2021<br>
+
+[https://ieeexplore.ieee.org/abstract/document/9521238](https://ieeexplore.ieee.org/abstract/document/9521238)
+
 [https://arxiv.org/abs/2006.13265](https://arxiv.org/abs/2006.13265)
 
 [comment]: <> (*Anomaly detection is the problem of recognizing abnormal inputs based on the seen examples of normal data. Despite recent advances of deep learning in recognizing image anomalies, these methods still prove incapable of handling complex images, such as those encountered in the medical domain. Barely visible abnormalities in chest X-rays or metastases in lymph nodes on the scans of the pathology slides resemble normal images and are very difficult to detect. To address this problem, we introduce a new powerful method of image anomaly detection. It relies on the classical autoencoder approach with a re-designed training pipeline to handle high-resolution, complex images, and a robust way of computing an image abnormality score. We revisit the very problem statement of fully unsupervised anomaly detection, where no abnormal examples are provided during the model setup. We propose to relax this unrealistic assumption by using a very small number of anomalies of confined variability merely to initiate the search of hyperparameters of the model. We evaluate our solution on natural image datasets with a known benchmark, as well as on two medical datasets containing radiology and digital pathology images. The proposed approach suggests a new strong baseline for image anomaly detection and outperforms state-of-the-art approaches in complex pattern analysis tasks.*)
 
-This is the official implementation of "Anomaly Detection with Deep Perceptual Autoencoders". 
+This is the official implementation of "Anomaly Detection in Medical Imaging With Deep Perceptual Autoencoders. 
 It includes experiments reported in the paper.
 
 ## Structure of Project 
@@ -207,3 +210,18 @@ Or install openslide into your system.
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [license-shield]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
 [license-url]: https://github.com/ninatu/mood_challenge/blob/master/LICENSE
+
+## Cite
+
+If you use this code in your research, please cite
+```bibtex
+@ARTICLE{9521238,
+  author={Shvetsova, Nina and Bakker, Bart and Fedulova, Irina and Schulz, Heinrich and Dylov, Dmitry V.},
+  journal={IEEE Access}, 
+  title={Anomaly Detection in Medical Imaging With Deep Perceptual Autoencoders}, 
+  year={2021},
+  volume={9},
+  number={},
+  pages={118571-118583},
+  doi={10.1109/ACCESS.2021.3107163}}
+```
